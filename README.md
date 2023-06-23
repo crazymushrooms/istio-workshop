@@ -37,12 +37,8 @@ minikube_start
 ````
 
 3. Depending on your installation build & push microservices images to the minikube cluster.
-   YOu can import images directly in docker:
-```
-docker image import registry/demo-local.tar
-docker image import registry/demo-local.tar
-```
-for ``arm64`` from ``registry-arm```
+
+The images you can find in https://github.com/users/crazymushrooms/packages/container/package/istio-workshop%2Fdemo
 
 4. Deploy demo application
    We deploy 2 services in ``demo`` namespace:

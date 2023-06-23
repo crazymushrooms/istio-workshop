@@ -60,7 +60,7 @@ kubectl -n demo port-forward svc/app1 88080:80
 5. Deploy service-mesh & observability applications
    We deploy istiod, istio-ingress, jaeger (all-in-one), prometheus, kiali dashboard, grafana & cert-manager
 ````
-make istio_addons
+make deploy_addons
 ````
 
 6. deploy app1 & app2 with istio annotations

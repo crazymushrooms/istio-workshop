@@ -1,0 +1,195 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app1
+    app.kubernetes.io/name: app1
+    version: v1
+  annotations:
+    sidecar.jaegertracing.io/inject: "true"
+  name: app1-v1
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: app1
+        app.kubernetes.io/name: app1
+        version: v1
+    spec:
+      containers:
+      - image: nginx:latest
+        name: app1
+        ports:
+          - containerPort: 80
+            name: http
+            protocol: TCP
+        resources: {}
+        volumeMounts:
+          - mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf
+            readOnly: true
+            name: nginx-conf
+          - mountPath: /var/log/nginx
+            name: log
+      volumes:
+      - name: nginx-conf
+        configMap:
+          name: nginx-conf
+          items:
+            - key: nginx.conf
+              path: nginx.conf
+      - name: log
+        emptyDir: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app2
+    app.kubernetes.io/name: app2
+    version: v1
+  annotations:
+    sidecar.jaegertracing.io/inject: "true"
+  name: app2-v1
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app2
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: app2
+        app.kubernetes.io/name: app2
+        version: v1
+    spec:
+      containers:
+        - image: nginx:latest
+          name: app2
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+              name: nginx-conf
+            - mountPath: /var/log/nginx
+              name: log
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+        - name: log
+          emptyDir: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app2
+    app.kubernetes.io/name: app2
+    version: v2
+  annotations:
+    sidecar.jaegertracing.io/inject: "true"
+  name: app2-v2
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app2
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: app2
+        app.kubernetes.io/name: app2
+        version: v2
+    spec:
+      containers:
+        - image: nginx:latest
+          name: app2
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+              name: nginx-conf
+            - mountPath: /var/log/nginx
+              name: log
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+        - name: log
+          emptyDir: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app2
+    app.kubernetes.io/name: app2
+    version: v3
+  annotations:
+    sidecar.jaegertracing.io/inject: "true"
+  name: app2-v3
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app2
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: app2
+        app.kubernetes.io/name: app2
+        version: v3
+    spec:
+      containers:
+        - image: nginx:latest
+          name: app2
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+              name: nginx-conf
+            - mountPath: /var/log/nginx
+              name: log
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+        - name: log
+          emptyDir: {}

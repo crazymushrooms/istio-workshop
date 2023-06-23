@@ -1,0 +1,32 @@
+deployment:
+  ingress:
+    class: ""
+  service_type: NodePort
+  logger:
+    log_level: "warning"
+  resources:
+    limits:
+      memory: "2Gi"
+auth:
+  strategy: "anonymous"
+external_services:
+  prometheus:
+    url: "http://prometheus-server.istio-system.svc.cluster.local/"
+  tracing:
+    auth:
+      type: none
+    enabled: true
+    in_cluster_url: 'http://jaeger-jaeger-operator-jaeger-query.istio-system.svc.cluster.local:16686'
+    url: 'http://jaeger-jaeger-operator-jaeger-query.istio-system.svc.cluster.local:16686/'
+    use_grpc: false
+  istio:
+    root_namespace: istio-system
+    component_status:
+      enabled: true
+      components:
+        - app_label: istiod
+          is_core: true
+        - app_label: istio-ingress
+          is_core: true
+          is_proxy: true
+          namespace: istio-system

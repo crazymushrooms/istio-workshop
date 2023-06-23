@@ -1,0 +1,57 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: app1
+  namespace: demo
+spec:
+  hosts:
+    - app1.demo.svc.cluster.local
+  gateways:
+    - mesh
+    - istio-system/default
+  http:
+    - name: "app1-default"
+      match:
+        - uri:
+            prefix: "/"
+      route:
+        - destination:
+            host: app1.demo.svc.cluster.local
+            port:
+              number: 80
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: app2
+  namespace: demo
+spec:
+  hosts:
+    - app2.demo.svc.cluster.local
+  gateways:
+    - mesh
+    - istio-system/default
+  http:
+    - name: "app2-default"
+      match:
+        - uri:
+            prefix: "/"
+      route:
+        - destination:
+            host: app2.demo.svc.cluster.local
+            port:
+              number: 80
+            subset: v3
+          weight: 80
+        - destination:
+            host: app2.demo.svc.cluster.local
+            port:
+              number: 80
+            subset: v1
+          weight: 10
+        - destination:
+            host: app2.demo.svc.cluster.local
+            port:
+              number: 80
+            subset: v2
+          weight: 10

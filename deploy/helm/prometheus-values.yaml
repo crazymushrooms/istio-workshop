@@ -1,0 +1,13 @@
+server:
+  persistentVolume:
+    enabled: false
+  service:
+    type: NodePort
+alertmanager:
+  enabled: false
+kube-state-metrics:
+  enabled: true
+prometheus-node-exporter:
+  enabled: false
+prometheus-pushgateway:
+  enabled: false

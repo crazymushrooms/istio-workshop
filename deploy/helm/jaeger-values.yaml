@@ -1,0 +1,31 @@
+jaeger:
+  create: true
+  namespace: istio-system
+  spec:
+    strategy: allinone
+    allInOne:
+      image: jaegertracing/all-in-one:latest
+      options:
+        log-level: debug
+       # prometheus:
+       #   server-url: "http://prometheus-server.istio-system.svc.cluster.local:80"
+    storage:
+      type: memory
+      memory:
+        max-traces: 10000
+      cassandraCreateSchema:
+        enabled: false
+    query:
+      serviceType: NodePort
+  collector:
+    name: jaeger-jaeger-operator-jaeger-collector-headless.istio-system.svc.cluster.local
+    service:
+      grpc:
+        port: 14250
+#  agent:
+#    cmdlineParams:
+#    # - --reporter.grpc.host-port=dns:///jaeger-collector-headless.observability:14250
+#  #    - --reporter.type=grpc
+
+rbac:
+  clusterRole: true

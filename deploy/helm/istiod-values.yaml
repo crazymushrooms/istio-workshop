@@ -1,0 +1,12 @@
+pilot:
+  env:
+    PILOT_HTTP10: "1"
+meshConfig:
+  defaultConfig:
+    tracing:
+      sampling: 100
+  extensionProviders:
+    - name: zipkin
+      zipkin:
+        service: "jaeger-jaeger-operator-jaeger-collector.istio-system.svc.cluster.local"
+        port: 9411

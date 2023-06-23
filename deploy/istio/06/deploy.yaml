@@ -1,0 +1,258 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app1
+    app.kubernetes.io/name: app1
+    version: v1
+  annotations:
+    sidecar.jaegertracing.io/inject: "true"
+  name: app1-v1
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: app1
+        app.kubernetes.io/name: app1
+        version: v1
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/control-plane:
+          ""
+      containers:
+      - image: demo:local
+        imagePullPolicy: Never
+        name: app1
+        ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8181
+            name: metrics
+            protocol: TCP
+        env:
+          - name: PROFILE
+            value: demo
+          - name: DEMO_DOWNSTREAM_HOST
+            value: "app2.demo.svc.cluster.local"
+          - name: DEMO_DOWNSTREAM_GATEWAY
+            value: "http://istio-ingress.istio-system.svc.cluster.local:80"
+          - name: DEMO_DOWNSTREAM_PATH
+            value: "/api/self"
+        resources: {}
+        volumeMounts:
+          - mountPath: /var/log/spring
+            name: log
+        livenessProbe:
+          httpGet:
+            path: "actuator/health"
+            port: metrics
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+            httpGet:
+              path: "actuator/health"
+              port: metrics
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      volumes:
+      - name: log
+        emptyDir: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app2
+    app.kubernetes.io/name: app2
+    version: v1
+  annotations:
+    sidecar.jaegertracing.io/inject: "true"
+  name: app2-v1
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app2
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: app2
+        app.kubernetes.io/name: app2
+        version: v1
+    spec:
+      containers:
+        - image: demo:local
+          imagePullPolicy: Never
+          name: app2
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+            - containerPort: 8181
+              name: metrics
+              protocol: TCP
+          env:
+            - name: PROFILE
+              value: demo
+            - name: DEMO_DOWNSTREAM_HOST
+              value: "app1.demo.svc.cluster.local"
+            - name: DEMO_DOWNSTREAM_GATEWAY
+              value: "http://istio-ingress.istio-system.svc.cluster.local:80"
+            - name: DEMO_DOWNSTREAM_PATH
+              value: "/api/self"
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/log/spring
+              name: log
+          livenessProbe:
+            httpGet:
+              path: "actuator/health"
+              port: metrics
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: "actuator/health"
+              port: metrics
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      volumes:
+        - name: log
+          emptyDir: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app2
+    app.kubernetes.io/name: app2
+    version: v2
+  annotations:
+    sidecar.jaegertracing.io/inject: "true"
+  name: app2-v2
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app2
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: app2
+        app.kubernetes.io/name: app2
+        version: v2
+    spec:
+      containers:
+        - image: demo:local
+          imagePullPolicy: Never
+          name: app2
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+            - containerPort: 8181
+              name: metrics
+              protocol: TCP
+          env:
+            - name: PROFILE
+              value: demo
+            - name: DEMO_DOWNSTREAM_HOST
+              value: "app1.demo.svc.cluster.local"
+            - name: DEMO_DOWNSTREAM_GATEWAY
+              value: "http://istio-ingress.istio-system.svc.cluster.local:80"
+            - name: DEMO_DOWNSTREAM_PATH
+              value: "/api/self"
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/log/spring
+              name: log
+          livenessProbe:
+            httpGet:
+              path: "actuator/health"
+              port: metrics
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: "actuator/health"
+              port: metrics
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      volumes:
+        - name: log
+          emptyDir: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app2
+    app.kubernetes.io/name: app2
+    version: v3
+  annotations:
+    sidecar.jaegertracing.io/inject: "true"
+  name: app2-v3
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app2
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: app2
+        app.kubernetes.io/name: app2
+        version: v3
+    spec:
+      containers:
+        - image: demo:local
+          imagePullPolicy: Never
+          name: app2
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+            - containerPort: 8181
+              name: metrics
+              protocol: TCP
+          env:
+            - name: PROFILE
+              value: demo
+            - name: DEMO_DOWNSTREAM_HOST
+              value: "app1.demo.svc.cluster.local"
+            - name: DEMO_DOWNSTREAM_GATEWAY
+              value: "http://istio-ingress.istio-system.svc.cluster.local:80"
+            - name: DEMO_DOWNSTREAM_PATH
+              value: "/api/self"
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/log/spring
+              name: log
+          livenessProbe:
+            httpGet:
+              path: "actuator/health"
+              port: metrics
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: "actuator/health"
+              port: metrics
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      volumes:
+        - name: log
+          emptyDir: {}

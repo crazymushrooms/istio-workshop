@@ -1,0 +1,16 @@
+apiVersion: telemetry.istio.io/v1alpha1
+kind: Telemetry
+metadata:
+  name: mesh-default
+  namespace: istio-system
+spec:
+  metrics:
+    - providers:
+        - name: prometheus
+  tracing:
+    - providers:
+        - name: "zipkin"
+      randomSamplingPercentage: 100.00
+  accessLogging:
+    - providers:
+        - name: envoy

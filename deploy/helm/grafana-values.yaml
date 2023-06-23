@@ -1,0 +1,58 @@
+testFramework:
+  enabled: false
+service:
+  enabled: true
+  type: NodePort
+
+persistence:
+  inMemory:
+    enabled: true
+
+adminUser: demo
+adminPassword: Demo1234
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-server.istio-system.svc.cluster.local
+      access: proxy
+      isDefault: true
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+    - name: 'istio'
+      orgId: 1
+      folder: 'istio'
+      type: file
+      disableDeletion: false
+      editable: true
+      options:
+        path: /var/lib/grafana/dashboards/istio
+
+dashboards:
+  istio:
+    local-dashboard-istio-1:
+      gnetId: 7639
+      revision: 168
+      datasource: Prometheus
+    local-dashboard-istio-2:
+      gnetId: 11829
+      revision: 168
+      datasource: Prometheus
+    local-dashboard-istio-3:
+      gnetId: 7630
+      revision: 168
+      datasource: Prometheus
+    local-dashboard-istio-4:
+      gnetId: 7630
+      revision: 168
+      datasource: Prometheus
+    local-dashboard-istio-5:
+      gnetId: 7645
+      revision: 168
+      datasource: Prometheus

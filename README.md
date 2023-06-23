@@ -40,6 +40,11 @@ minikube_start
 
 The images you can find in https://github.com/users/crazymushrooms/packages/container/package/istio-workshop%2Fdemo
 
+```
+docker pull ghcr.io/crazymushrooms/istio-workshop/demo:local
+docker opull ghcr.io/crazymushrooms/istio-workshop/demo:local-2
+```
+
 4. Deploy demo application
    We deploy 2 services in ``demo`` namespace:
 * app1 in version 1

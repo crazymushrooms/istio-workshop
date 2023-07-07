@@ -26,8 +26,8 @@ spec:
         node-role.kubernetes.io/control-plane:
           ""
       containers:
-      - image: demo:local
-        imagePullPolicy: Never
+      - image: ghcr.io/crazymushrooms/istio-workshop/demo:local
+        imagePullPolicy: IfNotPresent
         name: app1
         ports:
           - containerPort: 8080
@@ -90,8 +90,8 @@ spec:
         version: v1
     spec:
       containers:
-        - image: demo:local
-          imagePullPolicy: Never
+        - image: ghcr.io/crazymushrooms/istio-workshop/demo:local
+          imagePullPolicy: IfNotPresent
           name: app2
           ports:
             - containerPort: 8080
@@ -154,8 +154,8 @@ spec:
         version: v2
     spec:
       containers:
-        - image: demo:local
-          imagePullPolicy: Never
+        - image: ghcr.io/crazymushrooms/istio-workshop/demo:local
+          imagePullPolicy: IfNotPresent
           name: app2
           ports:
             - containerPort: 8080
@@ -218,8 +218,8 @@ spec:
         version: v3
     spec:
       containers:
-        - image: demo:local
-          imagePullPolicy: Never
+        - image: ghcr.io/crazymushrooms/istio-workshop/demo:local
+          imagePullPolicy: IfNotPresent
           name: app2
           ports:
             - containerPort: 8080

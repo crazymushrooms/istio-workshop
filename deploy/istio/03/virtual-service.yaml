@@ -69,22 +69,3 @@ spec:
         # "retry_policy": {
         #  "retry_on": "connect-failure,refused-stream,unavailable,cancelled,retriable-status-codes",
         # docs: By default, Envoy will not perform retries unless you’ve configured them per above.
-#    - name: "app2-v2"
-#      match:
-#        - uri:
-#            prefix: "/"
-#      route:
-#        - destination:
-#            host: app2.demo.svc.cluster.local
-#            port:
-#              number: 80
-#            subset: v2
-#          weight: 10
-#    - name: "app2-v1"
-#      route:
-#        - destination:
-#            host: app2.demo.svc.cluster.local
-#            port:
-#              number: 80
-#            subset: v1
-#          weight: 10

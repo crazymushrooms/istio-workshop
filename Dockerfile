@@ -1,10 +1,8 @@
 ARG VERSION="0.0.1-SNAPSHOT"
 FROM amazoncorretto:17-alpine as corretto-jdk
 
-# required for strip-debug to work
 RUN apk add --no-cache binutils
 
-# Build small JRE image
 RUN jlink \
          --add-modules ALL-MODULE-PATH \
          --strip-debug \
@@ -12,10 +10,6 @@ RUN jlink \
          --no-header-files \
          --compress=2 \
          --output /jre
-
-#COPY . /src
-#WORKDIR /src
-#RUN ./gradlew build --no-daemon
 
 FROM alpine:latest
 ARG VERSION

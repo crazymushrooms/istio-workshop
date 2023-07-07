@@ -1,4 +1,4 @@
-package com.demo.demo
+package com.demo
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -20,9 +20,8 @@ class DemoConfig(val properties: DemoProperties) {
     @Bean
     fun router(demoHandler: DemoHandler) = org.springframework.web.reactive.function.server.router {
         accept(MediaType.APPLICATION_JSON).nest {
-            GET("/self", demoHandler::callDelay)
+            GET("/self", demoHandler::callSelf)
             GET("/external", demoHandler::callExternal)
-            GET("/delay", demoHandler::callDelay)
         }
     }
 

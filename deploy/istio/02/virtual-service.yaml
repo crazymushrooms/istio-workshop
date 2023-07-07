@@ -56,23 +56,3 @@ spec:
             subset: v2
           weight: 10
       timeout: 0.3s
-#
-#    - name: "app2-v2"
-#      match:
-#        - uri:
-#            prefix: "/"
-#      route:
-#        - destination:
-#            host: app2.demo.svc.cluster.local
-#            port:
-#              number: 80
-#            subset: v2
-#          weight: 10
-#    - name: "app2-v1"
-#      route:
-#        - destination:
-#            host: app2.demo.svc.cluster.local
-#            port:
-#              number: 80
-#            subset: v1
-#          weight: 10

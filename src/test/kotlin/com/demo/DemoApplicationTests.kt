@@ -1,4 +1,4 @@
-package com.demo.demo
+package com.demo
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.context.properties.EnableConfigurationProperties

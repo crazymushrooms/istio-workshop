@@ -1,6 +1,6 @@
-package com.demo.demo
+package com.demo
 
-import com.demo.demo.model.Message
+import com.demo.model.Message
 import org.slf4j.Logger
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
@@ -13,17 +13,12 @@ import reactor.core.publisher.Mono
 import java.time.Duration
 
 @Component
-class DemoHandler(    private val properties: DemoProperties,
-                      private val webClient: WebClient,
-                      private val logger: Logger
+class DemoHandler(private val properties: DemoProperties,
+                  private val webClient: WebClient,
+                  private val logger: Logger
 ) {
+
     fun callSelf(request: ServerRequest): Mono<ServerResponse> {
-        val messageString = Mono.justOrEmpty(request.queryParam("message")).block()
-
-        return ok().body(Mono.just(Message(messageString.toString())))
-    }
-
-    fun callDelay(request: ServerRequest): Mono<ServerResponse> {
         val messageString = Mono.justOrEmpty(request.queryParam("message")).block()
         logger.info("running on version 2 with {} milliseconds", properties.threadsleep.milliseconds)
 

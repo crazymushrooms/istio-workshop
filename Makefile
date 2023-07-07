@@ -10,6 +10,8 @@ PLATFORM="linux/arm64"
 CLUSTER_NAME="demo"
 CLUSTER_NODES="3"
 
+.PHONY: minikube_start image compile docker_build push restart_demo deploy_addons deploy_demo istio kiali prometheus istio_01 istio_02 istio_03 istio_04 istio_05 istio_06 jaeger cert_mgr grafana load_circuit_breaker load_app1_external load_app2_self
+
 minikube_start:
 	minikube start --nodes $(CLUSTER_NODES) -p $(CLUSTER_NAME)
 
@@ -30,7 +32,7 @@ push:
 	@echo "pushing demo:$(DOCKER_TAG) to minikube"
 	minikube image load demo:$(DOCKER_TAG) -p demo
 
-demo_restart:
+restart_demo:
 	@echo "Restarting demo app1 && app2"
 	kubectl config use-context $(CLUSTER_NAME) && kubectl rollout restart deploy app1-v1 app2-v1 app2-v2 app2-v3 -n demo
 
